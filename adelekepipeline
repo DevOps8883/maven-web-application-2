@@ -4,14 +4,14 @@ pipeline {
     environment {
         // Define sensitive data securely using Jenkins credentials
         TOMCAT_URL = 'http://13.40.81.54:8080'
-        DEPLOY_PATH = '/web-application-2'  // Change this to your app context path
-        WAR_FILE = 'target/web-application-2.war'
+        DEPLOY_PATH = '/maven-web-application-2'  // Change this to your app context path
+        WAR_FILE = 'target/maven-web-application-2.war'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git url: 'git@github.com:DevOps8883/maven-web-application-2.git', branch: 'master'
+                git url: 'https://github.com/DevOps8883/maven-web-application-2.git', branch: 'master'
             }
         }
 
@@ -42,7 +42,7 @@ pipeline {
                 script {
                     def warFile = sh(script: "ls target/*.war", returnStdout: true).trim()
                     sh """
-                     curl --upload-file target/*.war "http://admin:admin123@13.40.81.54:8080/manager/text/deploy?path=/addressbook&update=true"
+                     curl --upload-file target/*.war "http://admin:admin123@13.40.81.54:8080/manager/text/deploy?path=/maven-web-application-2&update=true"
                     """
                 }
             }
